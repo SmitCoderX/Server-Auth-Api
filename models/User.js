@@ -23,8 +23,7 @@ const UserSchema = new mongoose.Schema({
     },
     className: {
         type: String,
-        required: [true, 'Please Add a Class'],
-        unique: true
+        required: [true, 'Please Add a Class']
     },
     createdBy: {
         type: Date,
