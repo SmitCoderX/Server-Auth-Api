@@ -1,6 +1,9 @@
 {
   "name": "server-auth-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.13.1"
+  },
   "description": "Server Auth Api",
   "main": "server.js",
   "scripts": {
