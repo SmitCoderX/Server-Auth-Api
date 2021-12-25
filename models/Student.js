@@ -12,7 +12,11 @@ const StudentSchema = new mongoose.Schema({
         science: Number,
         socialStudies: Number
     },
-    sum: Number,
+    sum: {
+        type: Number,
+        required: [false],
+        default: 0
+    },
     totalMarks: {
         type: Number,
         required: [true, 'Please Add Total Marks']
