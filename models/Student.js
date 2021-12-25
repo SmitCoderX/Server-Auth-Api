@@ -17,6 +17,10 @@ const StudentSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please Add Total Marks']
     },
+    className: {
+        type: String,
+        required: [true, 'Please add a Class']
+    },
     createdAt: {
         type: Date,
         default: Date.now
