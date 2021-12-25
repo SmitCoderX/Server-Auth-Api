@@ -23,12 +23,12 @@ exports.getAllStudents = asyncHandler(async (req, res, next) => {
 exports.addStudents = asyncHandler(async (req, res, next) => {
     const {name, marks, totalMarks, className} = req.body;
 
-    const sum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
+    const totalSum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
 
     const students = await Student.create({
         name, 
         marks,
-        sum,
+        totalSum,
         totalMarks,
         className
     });
@@ -61,8 +61,8 @@ exports.deleteStudent = asyncHandler(async (req, res, next) => {
 exports.updateStudent = asyncHandler(async(req, res, next) => {
 
     const { name, marks, totalMarks} = req.body;
-    const sumOfMarks = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
-    const student = await Student.findByIdAndUpdate(req.query .id, name, marks, sumOfMarks, totalMarks, {
+    const totalSum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
+    const student = await Student.findByIdAndUpdate(req.query .id, name, marks, totalSum, totalMarks, {
         new: true,
         runValidators: true
     });
