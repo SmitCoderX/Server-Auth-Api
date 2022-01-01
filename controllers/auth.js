@@ -6,14 +6,15 @@ const User = require('../models/User');
 // @route   POST /api/v1/auth/register
 // @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
-    const { name, email, password, className } = req.query;
+    const { name, email, password, className, deviceID } = req.query;
 
     // Create Teacher
     const user = await User.create({
         name,
         email,
         password,
-        className
+        className,
+        deviceID
     });
 
     res.status(200).json({
@@ -85,7 +86,8 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
     const fieldsToUpdate = {
         name: req.query.name,
         email: req.query.email,
-        className: req.query.className
+        className: req.query.className,
+        devideID: req.query.deviceID
     };
 
     const user = await User.findByIdAndUpdate(req.query.id, fieldsToUpdate, {

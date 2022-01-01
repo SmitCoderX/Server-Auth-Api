@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please Add a Class']
     },
+    deviceID: {
+        type: String,
+        required: [true, 'Please add a DeviceID']
+    },
     createdBy: {
         type: Date,
         default: Date.now
