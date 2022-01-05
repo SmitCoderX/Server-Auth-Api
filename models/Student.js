@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+var autoIncrement = require('mongoose-auto-increment');
+
 
 const StudentSchema = new mongoose.Schema({
     name: {
@@ -29,15 +31,14 @@ const StudentSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+},
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
-
-StudentSchema.post.Post.findOneAndUpdate({ _id: res._id }, { $inc: { views: 1 } }, {new: true },function(err, response) {
-    if (err) {
-    callback(err);
-   } else {
-    callback(response);
-   }
-});
+autoIncrement.initialize(mongoose.connection);
+StudentSchema.plugin(autoIncrement.plugin, 'Student');
+var Counter = mongoose.model('Student', StudentSchema);
 
 module.exports = mongoose.model('Student', StudentSchema);
