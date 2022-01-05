@@ -21,9 +21,8 @@ exports.getAllStudents = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/student
 // @access  Public
 exports.addStudents = asyncHandler(async (req, res, next) => {
-    const {name, marks, totalMarks, className, syncStatus} = req.body;
+    const {name, marks, totalSum, totalMarks, className, syncStatus} = req.body;
 
-    const totalSum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
 
     const students = await Student.create({ 
         name, 
@@ -61,8 +60,7 @@ exports.deleteStudent = asyncHandler(async (req, res, next) => {
 // @access  Public
 exports.updateStudent = asyncHandler(async(req, res, next) => {
 
-    const { name, marks, totalMarks} = req.body;
-    const totalSum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
+    const { name, marks, totalSum, totalMarks} = req.body;
     const student = await Student.findByIdAndUpdate(req.query .id, name, marks, totalSum, totalMarks, {
         new: true,
         runValidators: true
