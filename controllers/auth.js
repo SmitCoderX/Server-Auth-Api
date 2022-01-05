@@ -17,11 +17,12 @@ exports.register = asyncHandler(async (req, res, next) => {
         deviceID
     });
 
-    res.status(200).json({
+    res.status(200)
+    .json({
         success: true,
-        message: 'Teacher Created Successfully',
-        data: user
-    });
+        message: 'Teacher Registered Successfully',
+        user
+    }); 
 });
 
 // @desc    Login Teacher
@@ -49,11 +50,12 @@ exports.login = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Invalid Credentials', 401));
     }
 
-    res.status(200).json({
+    res.status(statusCode)
+    .json({
         success: true,
-        message: 'Teacher Loggedin Successfully',
-        data: user
-    });
+        message: 'Teacher LoggedIn Successfully',
+        user
+    }); 
 });
 
 // @desc    Log out user
