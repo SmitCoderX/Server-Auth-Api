@@ -21,12 +21,11 @@ exports.getAllStudents = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/student
 // @access  Public
 exports.addStudents = asyncHandler(async (req, res, next) => {
-    const {_id, name, marks, totalMarks, className, syncStatus} = req.body;
+    const {name, marks, totalMarks, className, syncStatus} = req.body;
 
     const totalSum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
 
-    const students = await Student.create({
-        _id, 
+    const students = await Student.create({ 
         name, 
         marks,
         totalSum,
