@@ -50,7 +50,7 @@ exports.login = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Invalid Credentials', 401));
     }
 
-    res.status(statusCode)
+    res.status(200)
     .json({
         success: true,
         message: 'Teacher LoggedIn Successfully',
