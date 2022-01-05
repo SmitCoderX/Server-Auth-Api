@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
-    _id: {
-        type: Number,
-        required: [true, 'Please Add a ID']
-    }, 
     name: {
         type: String,
         required: [true, 'Please add a name']
@@ -29,17 +25,19 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a Class']
     },
-    syncStatus: {
-        type: Number,
-    },
     createdAt: {
         type: Date,
         default: Date.now
     }
-},
-{
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
+});
+
+
+StudentSchema.post.Post.findOneAndUpdate({ _id: res._id }, { $inc: { views: 1 } }, {new: true },function(err, response) {
+    if (err) {
+    callback(err);
+   } else {
+    callback(response);
+   }
 });
 
 module.exports = mongoose.model('Student', StudentSchema);
