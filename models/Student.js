@@ -29,6 +29,9 @@ const StudentSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add a Class']
     },
+    syncStatus: {
+        type: Number,
+    },
     createdAt: {
         type: Date,
         default: Date.now

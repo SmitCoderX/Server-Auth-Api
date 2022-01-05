@@ -21,7 +21,7 @@ exports.getAllStudents = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/student
 // @access  Public
 exports.addStudents = asyncHandler(async (req, res, next) => {
-    const {_id, name, marks, totalMarks, className} = req.body;
+    const {_id, name, marks, totalMarks, className, syncStatus} = req.body;
 
     const totalSum = marks.hindi + marks.english + marks.maths + marks.science + marks.socialStudies;
 
@@ -31,7 +31,8 @@ exports.addStudents = asyncHandler(async (req, res, next) => {
         marks,
         totalSum,
         totalMarks,
-        className
+        className,
+        syncStatus
     });
 
     res.status(200).json({
