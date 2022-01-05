@@ -21,7 +21,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     .json({
         success: true,
         message: 'Teacher Registered Successfully',
-        user
+        data: user
     }); 
 });
 
@@ -54,7 +54,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     .json({
         success: true,
         message: 'Teacher LoggedIn Successfully',
-        user
+        data: user
     }); 
 });
 
