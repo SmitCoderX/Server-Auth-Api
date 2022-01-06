@@ -60,8 +60,13 @@ exports.deleteStudent = asyncHandler(async (req, res, next) => {
 // @access  Public
 exports.updateStudent = asyncHandler(async(req, res, next) => {
 
-    const { name, marks, totalSum, totalMarks} = req.body;
-    const student = await Student.findByIdAndUpdate(req.query.id, name, marks, totalSum, totalMarks, {
+    const fieldsToUpdate = {
+        name: req.body.name,
+        marks: req.body.marks,
+        totalSum: req.body.totalSum,
+        totalMarks: req.body.totalMarks
+    }
+    const student = await Student.findByIdAndUpdate(req.query.id, fieldsToUpdate, {
         new: true,
         runValidators: true
     });
