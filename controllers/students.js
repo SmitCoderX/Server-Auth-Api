@@ -61,7 +61,7 @@ exports.deleteStudent = asyncHandler(async (req, res, next) => {
 exports.updateStudent = asyncHandler(async(req, res, next) => {
 
     const { name, marks, totalSum, totalMarks} = req.body;
-    const student = await Student.findByIdAndUpdate(req.query .id, name, marks, totalSum, totalMarks, {
+    const student = await Student.findByIdAndUpdate(req.query.id, name, marks, totalSum, totalMarks, {
         new: true,
         runValidators: true
     });
