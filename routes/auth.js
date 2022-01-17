@@ -7,6 +7,7 @@ const {
     updateDetails,
     deleteAccount,
     forgotPassword,
+    sendResetPasswordForm,
     resetPassword
 } = require('../controllers/auth');
 
@@ -19,6 +20,7 @@ router.get('/logout', logout);
 router.put('/update', updateDetails);
 router.delete('/delete', deleteAccount);
 router.post('/forgotpassword', forgotPassword);
+router.get('/resetPassword/:resettoken', sendResetPasswordForm);
 router.put('/resetPassword/:resettoken', resetPassword);
 
 module.exports = router;

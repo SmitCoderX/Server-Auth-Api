@@ -3,6 +3,9 @@ const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
+const pug = require('pug');
+const path = require('path');
+
 
 // @desc    Register Teacher
 // @route   POST /api/v1/auth/register
@@ -146,18 +149,16 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     // Create reset URL
     const resetURL = `${req.protocol}://${req.get('host')}/api/v1/auth/resetpassword/${resetToken}`;
 
-    const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetURL}`;
-
     try {
         await sendEmail({
             email: user.email,
             subject: 'Password reset Token',
-            message
+            resetURL: resetURL
         });
 
         res.status(200).json({
             success: true,
-            data: 'Email Send'
+            message: 'Email Sent'
         });
     } catch (error) {
         console.error(error);
@@ -176,9 +177,31 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 });
 
 // @desc    Reset Password
+// @route   GET /api/v1/auth/resetpassword/:resettoken
+// @access  Public
+exports.sendResetPasswordForm = asyncHandler(async (req, res, next) => {
+
+    const { resettoken } = req.params;
+
+    const user = await User.findOne({
+        resettoken,
+        resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        return next(new ErrorResponse('Invalid Token', 400));
+    }
+
+   res.sendFile(path.join(process.cwd() + '/views/setpassword.html'));
+
+});
+
+
+// @desc    Reset Password
 // @route   PUT /api/v1/auth/resetpassword/:resettoken
 // @access  Public
 exports.resetPassword = asyncHandler(async (req, res, next) => {
+
     // Get hashed token
     const resetPasswordToken = crypto
         .createHash('sha256')
@@ -195,7 +218,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     }
 
     // Set new password
-    user.password = req.query.password;
+    user.password = req.body.password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 
@@ -203,6 +226,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        message: 'Password Updated Successfully',
         data: user
     })
 

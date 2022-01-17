@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db.js');
 const errorHandler = require('./middleware/errorHandler');
-
+const cors = require('cors');
 // Load env vars
 dotenv.config({ path: './config/config.env' });
 
@@ -17,6 +17,9 @@ const app = express();
 
 app.use(express.json());
 
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 // Dev Logging Middeleware
 if(process.env.NODE_ENV === 'developement') {
     app.use(morgan('dev'));
@@ -27,6 +30,9 @@ const server = app.get('/', (req, res) => {
         message: "Hello From Smit"
     });
 });
+
+// Enable Cors
+app.use(cors());
 
 // mount Routers
 app.use('/api/v1/auth', auth);
